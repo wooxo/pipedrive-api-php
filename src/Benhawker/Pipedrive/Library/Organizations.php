@@ -1,12 +1,13 @@
-<?php namespace wooxo\pipedrive\Library;
+<?php namespace Benhawker\Pipedrive\Library;
 
-use wooxo\pipedrive\Exceptions\PipedriveMissingFieldError;
+use Benhawker\Pipedrive\Exceptions\PipedriveMissingFieldError;
 
 /**
  * Pipedrive Organizations Methods
  * Organizations are companies and other kinds of organizations you are making
  * Deals with. Persons can be associated with organizations so that each
  * organization can contain one or more Persons.
+
  */
 class Organizations
 {
@@ -20,7 +21,7 @@ class Organizations
     /**
      * Initialise the object load master class
      */
-    public function __construct(\wooxo\pipedrive\Pipedrive $master)
+    public function __construct(\Benhawker\Pipedrive\Pipedrive $master)
     {
         //associate curl class
         $this->curl = $master->curl();
@@ -51,17 +52,6 @@ class Organizations
     }
 
     /**
-     * Returns all organizations
-     *
-     * @param  array $data (filter_id, start, limit, sort_by, sort_mode)
-     * @return array returns detials of all organizations
-     */
-    public function getAll(array $data = array())
-    {
-        return $this->curl->get('organizations/', $data);
-    }
-
-    /**
      * Returns an organization id
      *
      * @param  string $name pipedrive organizations name
@@ -72,6 +62,17 @@ class Organizations
     {
         $data['term'] = $name;
         return $this->curl->get('organizations/find', $data)['data'][0]['id'];
+    }
+
+    /**
+     * Returns all organizations
+     *
+     * @param  array $data (filter_id, start, limit, sort_by, sort_mode)
+     * @return array returns detials of all organizations
+     */
+    public function getAll(array $data = array())
+    {
+        return $this->curl->get('organizations/', $data);
     }
 
     /**

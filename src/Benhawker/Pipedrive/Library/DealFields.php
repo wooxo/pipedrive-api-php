@@ -1,6 +1,6 @@
-<?php namespace wooxo\pipedrive\Library;
+<?php namespace Benhawker\Pipedrive\Library;
 
-use wooxo\pipedrive\Exceptions\PipedriveMissingFieldError;
+use Benhawker\Pipedrive\Exceptions\PipedriveMissingFieldError;
 
 /**
  * Pipedrive Deals Methods
@@ -27,7 +27,7 @@ class DealFields
     /**
      * Initialise the object load master class
      */
-    public function __construct(\wooxo\pipedrive\Pipedrive $master)
+    public function __construct(\Benhawker\Pipedrive\Pipedrive $master)
     {
         //associate curl class
         $this->curl = $master->curl();

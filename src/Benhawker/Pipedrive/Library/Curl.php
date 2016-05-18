@@ -1,7 +1,7 @@
-<?php namespace wooxo\pipedrive\Library;
+<?php namespace Benhawker\Pipedrive\Library;
 
-use wooxo\pipedrive\Exceptions\PipedriveHttpError;
-use wooxo\pipedrive\Exceptions\PipedriveApiError;
+use Benhawker\Pipedrive\Exceptions\PipedriveHttpError;
+use Benhawker\Pipedrive\Exceptions\PipedriveApiError;
 
 /**
  * This class does the cURL requests for Pipedrive

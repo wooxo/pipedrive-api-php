@@ -3,10 +3,10 @@
  * Created by PhpStorm.
  * User: plampson
  * Date: 18/05/2016
- * Time: 14:05
+ * Time: 13:05
  */
 
-namespace wooxo\pipedrive\Library;
+namespace Benhawker\Pipedrive\Library;
 
 
 class Users
@@ -20,7 +20,7 @@ class Users
     /**
      * Initialise the object load master class
      */
-    public function __construct(\wooxo\pipedrive\Pipedrive $master)
+    public function __construct(\Benhawker\Pipedrive\Pipedrive $master)
     {
         //associate curl class
         $this->curl = $master->curl();
