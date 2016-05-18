@@ -1,5 +1,5 @@
 {
-    "name": "benhawker/pipedrive",
+    "name": "wooxo/pipedrive",
     "type": "library",
     "version": "0.1.1",
     "description": "API client library for the Pipedrive CRM",
