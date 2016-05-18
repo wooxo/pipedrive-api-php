@@ -1,4 +1,4 @@
-<?php namespace Benhawker\Pipedrive;
+<?php namespace wooxo\pipedrive;
 
     /**
      * Pipedrive API wrapper class v0.1

@@ -6,7 +6,7 @@
  * Time: 14:05
  */
 
-namespace Benhawker\Pipedrive\Library;
+namespace wooxo\pipedrive\Library;
 
 
 class Users
@@ -20,7 +20,7 @@ class Users
     /**
      * Initialise the object load master class
      */
-    public function __construct(\Benhawker\Pipedrive\Pipedrive $master)
+    public function __construct(\wooxo\pipedrive\Pipedrive $master)
     {
         //associate curl class
         $this->curl = $master->curl();

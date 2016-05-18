@@ -1,4 +1,4 @@
 <?php
-namespace Benhawker\Pipedrive\Exceptions;
+namespace wooxo\pipedrive\Exceptions;
 
 class PipedriveApiError extends PipedriveException {}

@@ -1,6 +1,6 @@
-<?php namespace Benhawker\Pipedrive\Library;
+<?php namespace wooxo\pipedrive\Library;
 
-use Benhawker\Pipedrive\Exceptions\PipedriveMissingFieldError;
+use wooxo\pipedrive\Exceptions\PipedriveMissingFieldError;
 
 /**
  * Pipedrive Organizations Methods
@@ -20,7 +20,7 @@ class Organizations
     /**
      * Initialise the object load master class
      */
-    public function __construct(\Benhawker\Pipedrive\Pipedrive $master)
+    public function __construct(\wooxo\pipedrive\Pipedrive $master)
     {
         //associate curl class
         $this->curl = $master->curl();

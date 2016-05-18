@@ -1,3 +1,3 @@
-<?php namespace Benhawker\Pipedrive\Exceptions;
+<?php namespace wooxo\pipedrive\Exceptions;
 
 class PipedriveException extends \Exception {}
