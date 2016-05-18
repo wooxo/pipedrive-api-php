@@ -1,5 +1,5 @@
 {
-    "name": "wooxo/pipedrive",
+    "name": "Wooxo/Pipedrive",
     "type": "library",
     "version": "0.1.1",
     "description": "API client library for the Pipedrive CRM",
@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Benhawker\\Pipedrive": "src/"
+            "Benhawker/Pipedrive": "src/"
         }
     },
     "minimum-stability": "dev"
