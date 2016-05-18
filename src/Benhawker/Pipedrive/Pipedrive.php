@@ -92,7 +92,11 @@ class Pipedrive
      * @var Products Object
      */
     protected $products;
-
+    /**
+     * Placeholder attritube for the pipedrive products class
+     * @var Products Object
+     */
+    protected $user;
     /**
      * Set up API url and load library classes
      *
