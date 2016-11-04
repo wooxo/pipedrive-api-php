@@ -31,6 +31,9 @@ class Deals
         $this->curl = $master->curl();
     }
 
+    public function getMany(int $start){
+        $this->curl->get('deals?start='.$start.'&limit='.($start+100));
+    }
     /**
      * Returns a deal
      *
@@ -104,7 +107,7 @@ class Deals
     {
         //if there is no product_id set throw error as it is a required field
         if (!isset($data['product_id'])) {
-            throw new PipedriveMissingFieldError('You must include a "pdoruct_id" field when adding a product to a deal');
+            throw new PipedriveMissingFieldError('You must include a "product_id" field when adding a product to a deal');
         }
         //if there is no item_price set throw error as it is a required field
         if (!isset($data['item_price'])) {
@@ -122,8 +125,8 @@ class Deals
      * Updates a deal
      *
      * @param  int   $dealId pipedrives deal Id
-     * @param  array $data   new detials of deal
-     * @return array returns detials of a deal
+     * @param  array $data   new details of deal
+     * @return array returns details of a deal
      */
     public function update($dealId, array $data = array())
     {

@@ -29,6 +29,10 @@ class Products
         //associate curl class
         $this->curl = $master->curl();
     }
+    public function getMany(int $start){
+        $limit=$start+100;
+        return $this->curl->get("products?start=$start&limit=$limit");
+    }
 
     /**
      * Returns a product / products

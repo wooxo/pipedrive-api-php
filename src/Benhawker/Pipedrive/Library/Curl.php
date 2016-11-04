@@ -178,7 +178,13 @@ class Curl
         //create array for api key
         $data['api_token'] = $this->apiKey;
         //make API end point
-        $endPoint = $this->url  . '/' . $method . '?' . http_build_query($data);
+        if(strpos('?',$method))
+        {
+            $endPoint = $this->url  . '/' . $method . '&' . http_build_query($data);
+        }
+        else{
+            $endPoint = $this->url  . '/' . $method . '?' . http_build_query($data);
+        }
         //set API endpoint
         $this->setOpt(CURLOPT_URL, $endPoint);
         //return this object

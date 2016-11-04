@@ -9,10 +9,10 @@
 namespace Benhawker\Pipedrive\Library;
 
 
-class Users
-{
+class Users {
     /**
      * Hold the pipedrive cURL session
+     *
      * @var MPortal\Pipedrive\Library\Curl Curl Object
      */
     protected $curl;
@@ -20,20 +20,23 @@ class Users
     /**
      * Initialise the object load master class
      */
-    public function __construct(\Benhawker\Pipedrive\Pipedrive $master)
-    {
+    public function __construct(\Benhawker\Pipedrive\Pipedrive $master) {
         //associate curl class
         $this->curl = $master->curl();
+    }
+
+    public function getMany(int $start) {
+        $limit = $start + 100;
+        return $this->curl->get("users?start=$start&limit=$limit");
     }
 
     /**
      * Returns a user
      *
-     * @param  int   $id pipedrive users id
+     * @param  int $id pipedrive users id
      * @return array returns detials of a user
      */
-    public function getById($id)
-    {
+    public function getById($id) {
         return $this->curl->get('users/' . $id);
     }
 
@@ -43,21 +46,19 @@ class Users
      * @param  string $name pipedrive users name
      * @return array  returns detials of a user
      */
-    public function getByName($name)
-    {
-        return $this->curl->get('users/find', array('term' => $name,'search_by_email'=>0));
+    public function getByName($name) {
+        return $this->curl->get('users/find', array('term' => $name, 'search_by_email' => 0));
     }
+
     /**
      * Returns a user / people
      *
      * @param  string $name pipedrive users name
      * @return array  returns detials of a user
      */
-    public function getIdByName($name)
-    {
-        $response=$this->curl->get('users/find', array('term' => $name));
-        if($response['data'] === null)
-        {
+    public function getIdByName($name) {
+        $response = $this->curl->get('users/find', array('term' => $name));
+        if ($response['data'] === null) {
             return false;
         }
         return $response['data'][0]['id'];
@@ -68,8 +69,7 @@ class Users
      * @return mixed
      * @throws PipedriveMissingFieldError
      */
-    public function products(array $data)
-    {
+    public function products(array $data) {
         //if there is no id set throw error as it is a required field
         if (!isset($data['id'])) {
             throw new PipedriveMissingFieldError('You must include the "id" of the user when getting products');
@@ -82,11 +82,10 @@ class Users
      * Updates a user
      *
      * @param  int   $userId pipedrives user Id
-     * @param  array $data     new detials of user
+     * @param  array $data   new detials of user
      * @return array returns detials of a user
      */
-    public function update($userId, array $data = array())
-    {
+    public function update($userId, array $data = array()) {
         return $this->curl->put('users/' . $userId, $data);
     }
 
@@ -95,8 +94,7 @@ class Users
      * @return mixed
      * @throws PipedriveMissingFieldError
      */
-    public function add(array $data)
-    {
+    public function add(array $data) {
         //if there is no name set throw error as it is a required field
         if (!isset($data['name'])) {
             throw new PipedriveMissingFieldError('You must include a "name" field when inserting a user');
@@ -108,11 +106,10 @@ class Users
     /**
      * Deletes a user
      *
-     * @param  int   $userId pipedrives user Id
+     * @param  int $userId pipedrives user Id
      * @return array returns detials of a user
      */
-    public function delete($userId)
-    {
+    public function delete($userId) {
         return $this->curl->delete('users/' . $userId);
     }
 }

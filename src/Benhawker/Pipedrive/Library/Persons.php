@@ -27,6 +27,11 @@ class Persons
         $this->curl = $master->curl();
     }
 
+    public function getMany(int $start){
+        $limit=$start+100;
+        return $this->curl->get("persons?start=$start&limit=$limit");
+    }
+
     /**
      * Returns a person
      *
