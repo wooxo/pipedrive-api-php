@@ -1,10 +1,9 @@
 <?php namespace Benhawker\Pipedrive;
 
     /**
- * Pipedrive API wrapper class v0.1
- *
- * Author: Ben Hawker (ben@tickettoridegroup.com) 2014
- */
+     * Pipedrive API wrapper class v0.1
+     * Author: Ben Hawker (ben@tickettoridegroup.com) 2014
+     */
 
 /*
 (MIT License)
@@ -30,73 +29,92 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-class Pipedrive
-{
+class Pipedrive {
     /**
      * API Key
+     *
      * @var string
      */
     protected $apiKey;
     /**
      * Protocol (default 'https')
+     *
      * @var string
      */
     protected $protocol;
     /**
      * Host Url (default 'api.pipedrive,com')
+     *
      * @var string
      */
     protected $host;
     /**
      * API version (default 'v1')
+     *
      * @var string
      */
     protected $version;
     /**
      * Hold the Curl Object
+     *
      * @var \Benhawker\Pipedrive\Library\Curl Curl Object
      */
     protected $curl;
     /**
      * Placeholder attritube for the pipedrive persons class
+     *
      * @var \Benhawker\Pipedrive\Library\Persons Persons Object
      */
     protected $persons;
     /**
      * Placeholder attritube for the pipedrive deals class
+     *
      * @var \Benhawker\Pipedrive\Library\Deals Deals Object
      */
     protected $deals;
     /**
      * Placeholder attritube for the pipedrive activities class
+     *
      * @var \Benhawker\Pipedrive\Library\Activities Activities Object
      */
     protected $activities;
     /**
      * Placeholder attritube for the pipedrive notes class
+     *
      * @var \Benhawker\Pipedrive\Library\Notes Notes Object
      */
     protected $notes;
     /**
      * Placeholder attritube for the pipedrive dealFields class
+     *
      * @var \Benhawker\Pipedrive\Library\DealFields DealFields Object
      */
     protected $dealFields;
     /**
      * Placeholder attritube for the pipedrive organizations class
+     *
      * @var Organizations Object
      */
     protected $organizations;
     /**
      * Placeholder attritube for the pipedrive products class
+     *
      * @var Products Object
      */
     protected $products;
     /**
      * Placeholder attritube for the pipedrive products class
+     *
+     * @var Users Object
+     */
+    protected $users;
+    /**
+     * Placeholder attritube for the pipedrive products class
+     *
      * @var Products Object
      */
-    protected $user;
+    protected $pipelines;
+
     /**
      * Set up API url and load library classes
      *
@@ -105,8 +123,7 @@ class Pipedrive
      * @param string $host     host url (default: api.pipedrive.com)
      * @param string $version  version  (default: v1)
      */
-    public function __construct($apiKey = '', $protocol = 'https', $host = 'api.pipedrive.com', $version = 'v1')
-    {
+    public function __construct($apiKey = '',$production=false, $protocol = 'https', $host = 'api.pipedrive.com', $version = 'v1') {
         //set var apiKey is essiantial!!
         $this->apiKey   = $apiKey;
         $this->protocol = $protocol;
@@ -117,7 +134,7 @@ class Pipedrive
         $url = $protocol . '://' . $host . '/' . $version;
 
         //add curl library and pass the API Url & key to the object
-        $this->curl = new Library\Curl($url, $apiKey);
+        $this->curl = new Library\Curl($url, $apiKey,$production);
 
         //add pipedrive classes to the assoicated property
         $this->persons       = new Library\Persons($this);
@@ -127,7 +144,9 @@ class Pipedrive
         $this->dealFields    = new Library\DealFields($this);
         $this->organizations = new Library\Organizations($this);
         $this->products      = new Library\Products($this);
-        $this->users      = new Library\Users($this);
+        $this->users         = new Library\Users($this);
+        $this->pipelines     = new Library\Pipelines($this);
+        $this->stages        = new Library\Stages($this);
     }
 
     /**
@@ -135,8 +154,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Curl
      */
-    public function curl()
-    {
+    public function curl() {
         return $this->curl;
     }
 
@@ -145,8 +163,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Persons
      */
-    public function persons()
-    {
+    public function persons() {
         return $this->persons;
     }
 
@@ -155,8 +172,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Deals
      */
-    public function deals()
-    {
+    public function deals() {
         return $this->deals;
     }
 
@@ -165,8 +181,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Activities
      */
-    public function activities()
-    {
+    public function activities() {
         return $this->activities;
     }
 
@@ -175,8 +190,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Notes
      */
-    public function notes()
-    {
+    public function notes() {
         return $this->notes;
     }
 
@@ -185,8 +199,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\DealFields
      */
-    public function dealFields()
-    {
+    public function dealFields() {
         return $this->dealFields;
     }
 
@@ -195,8 +208,7 @@ class Pipedrive
      *
      * @return Organizations Object
      */
-    public function organizations()
-    {
+    public function organizations() {
         return $this->organizations;
     }
 
@@ -205,12 +217,11 @@ class Pipedrive
      *
      * @return Products Object
      */
-    public function products()
-    {
+    public function products() {
         return $this->products;
     }
-    public function users()
-    {
+
+    public function users() {
         return $this->users;
     }
 }

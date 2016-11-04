@@ -32,7 +32,7 @@ class Deals
     }
 
     public function getMany(int $start){
-        $this->curl->get('deals?start='.$start.'&limit='.($start+100));
+        return $this->curl->get('deals?start='.$start.'&limit='.($start+100));
     }
     /**
      * Returns a deal

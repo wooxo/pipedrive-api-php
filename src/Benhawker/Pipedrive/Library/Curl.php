@@ -6,8 +6,7 @@ use Benhawker\Pipedrive\Exceptions\PipedriveApiError;
 /**
  * This class does the cURL requests for Pipedrive
  */
-class Curl
-{
+class Curl {
     /**
      * User Agent used to send to API
      */
@@ -15,16 +14,19 @@ class Curl
 
     /**
      * API Key
+     *
      * @var string
      */
     protected $apiKey;
     /**
      * API Url
+     *
      * @var string
      */
     protected $url;
     /**
      * Client URL Library
+     *
      * @var resource curl session
      */
     public $curl;
@@ -32,8 +34,7 @@ class Curl
     /**
      * Initialise the cURL session and set headers
      */
-    public function __construct($url, $apiKey)
-    {
+    public function __construct($url, $apiKey, $production) {
         //set URL and API Key
         $this->url    = $url;
         $this->apiKey = $apiKey;
@@ -45,13 +46,15 @@ class Curl
              ->setOpt(CURLOPT_HEADER, false)
              ->setOpt(CURLOPT_RETURNTRANSFER, true)
              ->setOpt(CURLOPT_HTTPHEADER, array("Accept: application/json"));
+        if($production){
+            $this->setOpt(CURLOPT_SSL_VERIFYPEER, false);
+        }
     }
 
     /**
      * Close cURL session
      */
-    public function __destruct()
-    {
+    public function __destruct() {
         //if session is open close it
         if (is_resource($this->curl)) {
             curl_close($this->curl);
@@ -64,8 +67,7 @@ class Curl
      * @param  string $method Pipedrive method
      * @return array  decoded Json Output
      */
-    public function get($method, $data = array())
-    {
+    public function get($method, $data = array()) {
         //set cURL transfer option for get request
         // and get ouput
         return $this->createEndPoint($method, $data)
@@ -80,8 +82,7 @@ class Curl
      * @param  string $method Pipedrive method
      * @return array  decoded Json Output
      */
-    public function post($method, array $data)
-    {
+    public function post($method, array $data) {
         //set cURL transfer option for post request
         // and get ouput
         return $this->createEndPoint($method)
@@ -97,8 +98,7 @@ class Curl
      * @param  string $method Pipedrive method
      * @return array  decoded Json Output
      */
-    public function put($method, array $data)
-    {
+    public function put($method, array $data) {
         //set cURL transfer option for post request
         // and get ouput
         return $this->createEndPoint($method)
@@ -113,8 +113,7 @@ class Curl
      * @param  string $method Pipedrive method
      * @return array  decoded Json Output
      */
-    public function delete($method)
-    {
+    public function delete($method) {
         //set cURL transfer option for delete request
         // and get ouput
         return $this->createEndPoint($method)
@@ -127,8 +126,7 @@ class Curl
      *
      * @return array decoded json ouput
      */
-    protected function exec()
-    {
+    protected function exec() {
         //get response output and info
         $response = curl_exec($this->curl);
         $info     = curl_getinfo($this->curl);
@@ -155,11 +153,9 @@ class Curl
      *
      * @param string $option option
      * @param string $value  value
-     *
      * @return $this this object
      */
-    protected function setOpt($option, $value)
-    {
+    protected function setOpt($option, $value) {
         //set cURL transfer option
         curl_setopt($this->curl, $option, $value);
         // return the current object
@@ -173,17 +169,14 @@ class Curl
      * @param  string $method Pipedrive method
      * @return $this Current Object
      */
-    protected function createEndPoint($method, $data = array())
-    {
+    protected function createEndPoint($method, $data = array()) {
         //create array for api key
         $data['api_token'] = $this->apiKey;
         //make API end point
-        if(strpos('?',$method))
-        {
-            $endPoint = $this->url  . '/' . $method . '&' . http_build_query($data);
-        }
-        else{
-            $endPoint = $this->url  . '/' . $method . '?' . http_build_query($data);
+        if (strpos($method, '?')) {
+            $endPoint = $this->url . '/' . $method . '&' . http_build_query($data);
+        } else {
+            $endPoint = $this->url . '/' . $method . '?' . http_build_query($data);
         }
         //set API endpoint
         $this->setOpt(CURLOPT_URL, $endPoint);
@@ -192,11 +185,9 @@ class Curl
     }
 
     /**************************************************\
-
-     ALL FOLLOWING METHODS ARE BASED ON :
-     https://github.com/php-curl-class/php-curl-class
-
-    \**************************************************/
+     * ALL FOLLOWING METHODS ARE BASED ON :
+     * https://github.com/php-curl-class/php-curl-class
+     * \**************************************************/
 
     /**
      * Loops through post field array and removes any empty arrays
@@ -206,8 +197,7 @@ class Curl
      * @param  array $data post fields
      * @return array updated postfields
      */
-    protected function postfields($data)
-    {
+    protected function postfields($data) {
         if (is_array($data)) {
             //if mulitdimensional array
             if ($this->isArrayMultiDim($data)) {
@@ -245,46 +235,47 @@ class Curl
      * @param  string $key  nested key
      * @return string
      */
-    private function httpBuildMultiQuery(array $data, $key = null)
-    {
-            $query = array();
+    private function httpBuildMultiQuery(array $data, $key = null) {
+        $query = array();
 
-            if (empty($data)) {
-                return $key . '=';
+        if (empty($data)) {
+            return $key . '=';
+        }
+        $isArrayAssoc = $this->isArrayAssoc($data);
+        // build
+        foreach ($data as $k => $value) {
+            if (is_string($value) || is_numeric($value)) {
+                $brackets = $isArrayAssoc ? '[' . $k . ']' : '[]';
+                $query[]  = urlencode(is_null($key) ? $k : $key . $brackets) . '=' . rawurlencode($value);
+            } elseif (is_array($value)) {
+                $nested  = is_null($key) ? $k : $key . '[' . $k . ']';
+                $query[] = $this->httpBuildMultiQuery($value, $nested);
             }
-            $isArrayAssoc = $this->isArrayAssoc($data);
-            // build
-            foreach ($data as $k => $value) {
-                if (is_string($value) || is_numeric($value)) {
-                    $brackets = $isArrayAssoc ? '[' . $k . ']' : '[]';
-                    $query[] = urlencode(is_null($key) ? $k : $key . $brackets) . '=' . rawurlencode($value);
-                } elseif (is_array($value)) {
-                    $nested = is_null($key) ? $k : $key . '[' . $k . ']';
-                    $query[] = $this->httpBuildMultiQuery($value, $nested);
-                }
-            }
-
-            return implode('&', $query);
         }
 
-    /**
-     * From https://github.com/php-curl-class/php-curl-class
-     * @param  array   $array
-     * @return boolean
-     */
-    private function isArrayAssoc($array)
-    {
-        return (bool) count(array_filter(array_keys($array), 'is_string'));
+        return implode('&', $query);
     }
 
     /**
      * From https://github.com/php-curl-class/php-curl-class
-     * @param  array   $array
+     *
+     * @param  array $array
      * @return boolean
      */
-    private function isArrayMultiDim($array)
-    {
-        if (!is_array($array)) return false;
+    private function isArrayAssoc($array) {
+        return (bool)count(array_filter(array_keys($array), 'is_string'));
+    }
+
+    /**
+     * From https://github.com/php-curl-class/php-curl-class
+     *
+     * @param  array $array
+     * @return boolean
+     */
+    private function isArrayMultiDim($array) {
+        if (!is_array($array)) {
+            return false;
+        }
         return !(count($array) === count($array, COUNT_RECURSIVE));
     }
 }
