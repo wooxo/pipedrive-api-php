@@ -102,6 +102,7 @@ class Pipedrive {
      * @var Products Object
      */
     protected $products;
+
     /**
      * Placeholder attritube for the pipedrive products class
      *
@@ -111,9 +112,15 @@ class Pipedrive {
     /**
      * Placeholder attritube for the pipedrive products class
      *
-     * @var Products Object
+     * @var Pipelines Object
      */
     protected $pipelines;
+    /**
+     * Placeholder attritube for the pipedrive products class
+     *
+     * @var Stages Object
+     */
+    protected $stages;
 
     /**
      * Set up API url and load library classes
@@ -223,5 +230,11 @@ class Pipedrive {
 
     public function users() {
         return $this->users;
+    }
+    public function pipelines() {
+        return $this->pipelines;
+    }
+    public function stages() {
+        return $this->stages;
     }
 }
