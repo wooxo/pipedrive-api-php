@@ -46,7 +46,7 @@ class Curl {
              ->setOpt(CURLOPT_HEADER, false)
              ->setOpt(CURLOPT_RETURNTRANSFER, true)
              ->setOpt(CURLOPT_HTTPHEADER, array("Accept: application/json"));
-        if($production){
+        if(!$production){
             $this->setOpt(CURLOPT_SSL_VERIFYPEER, false);
         }
     }
