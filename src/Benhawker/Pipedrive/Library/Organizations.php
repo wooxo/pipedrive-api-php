@@ -27,9 +27,13 @@ class Organizations
         $this->curl = $master->curl();
     }
 
-    public function getMany(int $start){
-        $limit=$start+100;
-        return $this->curl->get("organizations?start=$start&limit=$limit")['data'];
+    public function getMany($start){
+        try{
+            return $this->curl->get("organizations?start=$start&limit=100")['data'];
+        }catch(\Exception $e){
+            return false;
+        }
+
     }
 
     /**

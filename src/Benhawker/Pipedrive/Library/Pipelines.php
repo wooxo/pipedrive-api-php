@@ -35,6 +35,6 @@ class Pipelines {
         return $this->curl->get('pipelines')['data'];
     }
     public function getMany(int $start){
-        return $this->curl->get('pipelines?start='.$start.'&limit='.($start+100))['data'];
+        return $this->curl->get('pipelines?start='.$start.'&limit=100')['data'];
     }
 }

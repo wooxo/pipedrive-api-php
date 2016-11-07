@@ -29,8 +29,7 @@ class Activities
         $this->curl = $master->curl();
     }
     public function getMany(int $start) {
-        $limit = $start + 100;
-        return $this->curl->get("activities?start=$start&limit=$limit")['data'];
+        return $this->curl->get("activities?start=$start&limit=100")['data'];
     }
     /**
      * Adds a activity
