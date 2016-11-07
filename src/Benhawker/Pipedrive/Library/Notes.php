@@ -27,7 +27,7 @@ class Notes
         //associate curl class
         $this->curl = $master->curl();
     }
-    public function getMany(int $start){
+    public function getMany( $start){
         return $this->curl->get("notes?start=$start&limit=100")['data'];
     }
 

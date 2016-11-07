@@ -31,7 +31,7 @@ class Deals
         $this->curl = $master->curl();
     }
 
-    public function getMany(int $start){
+    public function getMany($start){
         return $this->curl->get('deals?start='.$start.'&limit=100')['data'];
     }
     /**

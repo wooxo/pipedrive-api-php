@@ -27,7 +27,7 @@ class Persons
         $this->curl = $master->curl();
     }
 
-    public function getMany(int $start){
+    public function getMany($start){
         return $this->curl->get("persons?start=$start&limit=100")['data'];
     }
 

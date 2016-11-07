@@ -33,7 +33,7 @@ class Stages {
     {
         return $this->curl->get('stages')['data'];
     }
-    public function getMany(int $start){
+    public function getMany($start){
         return $this->curl->get('stages?start='.$start.'&limit=100')['data'];
     }
 }
