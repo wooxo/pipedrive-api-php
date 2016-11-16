@@ -31,7 +31,7 @@ class Stages {
      */
     public function getAll()
     {
-        return $this->curl->get('stages')['data'];
+        return $this->curl->get('stages?pipeline_id=0')['data'];
     }
     public function getMany($start){
         return $this->curl->get('stages?start='.$start.'&limit=100')['data'];

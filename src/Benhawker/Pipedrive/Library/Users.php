@@ -9,6 +9,8 @@
 namespace Benhawker\Pipedrive\Library;
 
 
+use Benhawker\Pipedrive\Exceptions\PipedriveMissingFieldError;
+
 class Users {
     /**
      * Hold the pipedrive cURL session
@@ -24,7 +26,10 @@ class Users {
         //associate curl class
         $this->curl = $master->curl();
     }
-
+    public function getAll()
+    {
+        return $this->curl->get('users')['data'];
+    }
     public function getMany(int $start) {
         $limit = $start + 100;
         return $this->curl->get("users?start=$start&limit=$limit");
