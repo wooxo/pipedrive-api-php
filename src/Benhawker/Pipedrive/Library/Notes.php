@@ -4,17 +4,16 @@ use Benhawker\Pipedrive\Exceptions\PipedriveMissingFieldError;
 
 /**
  * Pipedrive Notes Methods
- *
  * Notes are pieces of textual (HTML-formatted) information that can be attached
  * to Deals, Persons and Organizations. Notes are usually displayed in the UI in
  * a chronological order – newest first – and in context with other updates
  * regarding the item they are attached to.
- *
+
  */
-class Notes
-{
+class Notes {
     /**
      * Hold the pipedrive cURL session
+     *
      * @var \Benhawker\Pipedrive\Library\Curl Curl Object
      */
     protected $curl;
@@ -22,12 +21,12 @@ class Notes
     /**
      * Initialise the object load master class
      */
-    public function __construct(\Benhawker\Pipedrive\Pipedrive $master)
-    {
+    public function __construct(\Benhawker\Pipedrive\Pipedrive $master) {
         //associate curl class
         $this->curl = $master->curl();
     }
-    public function getMany( $start){
+
+    public function getMany($start) {
         return $this->curl->get("notes?start=$start&limit=100")['data'];
     }
 
@@ -37,8 +36,7 @@ class Notes
      * @param  array $data note detials
      * @return array returns detials of the note
      */
-    public function add(array $data)
-    {
+    public function add(array $data) {
         //if there is no content set throw error as it is a required field
         if (!isset($data['content'])) {
             throw new PipedriveMissingFieldError('You must include a "content" field when inserting a note');
@@ -50,5 +48,15 @@ class Notes
         }
 
         return $this->curl->post('notes', $data);
+    }
+
+    /**
+     * Update a note
+     *
+     * @param       $id
+     * @param array $data
+     */
+    public function update($id, array $data) {
+        return $this->curl->put('notes/' . $id, $data);
     }
 }

@@ -47,4 +47,13 @@ class Activities
 
         return $this->curl->post('activities', $data);
     }
+    /**
+     * Update a activity
+     *
+     * @param       $id
+     * @param array $data
+     */
+    public function update($id, array $data) {
+        return $this->curl->put('activities/' . $id, $data);
+    }
 }
