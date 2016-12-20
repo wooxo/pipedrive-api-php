@@ -7,10 +7,8 @@ use Benhawker\Pipedrive\Exceptions\PipedriveMissingFieldError;
  * Persons are your contacts, the customers you are doing Deals with.
  * Each Person can belong to an Organization.
  * Persons should not be confused with Users.
-
  */
-class Persons
-{
+class Persons {
     /**
      * Hold the pipedrive cURL session
      *
@@ -21,13 +19,12 @@ class Persons
     /**
      * Initialise the object load master class
      */
-    public function __construct(\Benhawker\Pipedrive\Pipedrive $master)
-    {
+    public function __construct(\Benhawker\Pipedrive\Pipedrive $master) {
         //associate curl class
         $this->curl = $master->curl();
     }
 
-    public function getMany($start){
+    public function getMany($start) {
         return $this->curl->get("persons?start=$start&limit=100")['data'];
     }
 
@@ -37,8 +34,7 @@ class Persons
      * @param  int $id pipedrive persons id
      * @return array returns detials of a person
      */
-    public function getById($id)
-    {
+    public function getById($id) {
         return $this->curl->get('persons/' . $id);
     }
 
@@ -48,8 +44,7 @@ class Persons
      * @param  string $name pipedrive persons name
      * @return array  returns detials of a person
      */
-    public function getIdByName($name)
-    {
+    public function getIdByName($name) {
         return $this->curl->get('persons/find', array('term' => $name))['data'][0]['id'];
     }
 
@@ -59,8 +54,7 @@ class Persons
      * @param  string $name pipedrive persons name
      * @return array  returns detials of a person
      */
-    public function getByName($name)
-    {
+    public function getByName($name) {
         return $this->curl->get('persons/find', array('term' => $name));
     }
 
@@ -70,8 +64,7 @@ class Persons
      * @param  array $data (id, start, limit)
      * @return array deals
      */
-    public function deals(array $data)
-    {
+    public function deals(array $data) {
         //if there is no id set throw error as it is a required field
         if (!isset($data['id'])) {
             throw new PipedriveMissingFieldError('You must include the "id" of the person when getting deals');
@@ -86,8 +79,7 @@ class Persons
      * @param  array $data (id, start, limit)
      * @return array products
      */
-    public function products(array $data)
-    {
+    public function products(array $data) {
         //if there is no id set throw error as it is a required field
         if (!isset($data['id'])) {
             throw new PipedriveMissingFieldError('You must include the "id" of the person when getting products');
@@ -103,8 +95,7 @@ class Persons
      * @param  array $data     new detials of person
      * @return array returns detials of a person
      */
-    public function update($personId, array $data = array())
-    {
+    public function update($personId, array $data = array()) {
         return $this->curl->put('persons/' . $personId, $data);
     }
 
@@ -114,8 +105,7 @@ class Persons
      * @param  array $data persons detials
      * @return array returns detials of a person
      */
-    public function add(array $data)
-    {
+    public function add(array $data) {
         //if there is no name set throw error as it is a required field
         if (!isset($data['name'])) {
             throw new PipedriveMissingFieldError('You must include a "name" field when inserting a person');
@@ -130,8 +120,11 @@ class Persons
      * @param  int $personId pipedrives person Id
      * @return array returns detials of a person
      */
-    public function delete($personId)
-    {
+    public function delete($personId) {
         return $this->curl->delete('persons/' . $personId);
+    }
+
+    public function getByEmail($name) {
+        return $this->curl->get('persons/find', array('term' => $name, 'search_by_email' => 1));
     }
 }

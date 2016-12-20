@@ -26,10 +26,11 @@ class Users {
         //associate curl class
         $this->curl = $master->curl();
     }
-    public function getAll()
-    {
+
+    public function getAll() {
         return $this->curl->get('users')['data'];
     }
+
     public function getMany(int $start) {
         $limit = $start + 100;
         return $this->curl->get("users?start=$start&limit=$limit");
@@ -116,5 +117,9 @@ class Users {
      */
     public function delete($userId) {
         return $this->curl->delete('users/' . $userId);
+    }
+
+    public function getByEmail($name) {
+        return $this->curl->get('users/find', array('term' => $name, 'search_by_email' => 1));
     }
 }
