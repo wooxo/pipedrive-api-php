@@ -102,6 +102,12 @@ class Pipedrive
      *
      * @var Products Object
      */
+    protected $organizationFields;
+    /**
+     * Placeholder attritube for the pipedrive products class
+     *
+     * @var Products Object
+     */
     protected $products;
 
     /**
