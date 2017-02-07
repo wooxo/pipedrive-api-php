@@ -29,7 +29,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-class Pipedrive {
+class Pipedrive
+{
     /**
      * API Key
      *
@@ -130,7 +131,13 @@ class Pipedrive {
      * @param string $host     host url (default: api.pipedrive.com)
      * @param string $version  version  (default: v1)
      */
-    public function __construct($apiKey = '',$production=false, $protocol = 'https', $host = 'api.pipedrive.com', $version = 'v1') {
+    public function __construct (
+        $apiKey = '',
+        $production = false,
+        $protocol = 'https',
+        $host = 'api.pipedrive.com',
+        $version = 'v1'
+    ) {
         //set var apiKey is essiantial!!
         $this->apiKey   = $apiKey;
         $this->protocol = $protocol;
@@ -141,19 +148,20 @@ class Pipedrive {
         $url = $protocol . '://' . $host . '/' . $version;
 
         //add curl library and pass the API Url & key to the object
-        $this->curl = new Library\Curl($url, $apiKey,$production);
+        $this->curl = new Library\Curl($url, $apiKey, $production);
 
         //add pipedrive classes to the assoicated property
-        $this->persons       = new Library\Persons($this);
-        $this->deals         = new Library\Deals($this);
-        $this->activities    = new Library\Activities($this);
-        $this->notes         = new Library\Notes($this);
-        $this->dealFields    = new Library\DealFields($this);
-        $this->organizations = new Library\Organizations($this);
-        $this->products      = new Library\Products($this);
-        $this->users         = new Library\Users($this);
-        $this->pipelines     = new Library\Pipelines($this);
-        $this->stages        = new Library\Stages($this);
+        $this->persons            = new Library\Persons($this);
+        $this->deals              = new Library\Deals($this);
+        $this->activities         = new Library\Activities($this);
+        $this->notes              = new Library\Notes($this);
+        $this->dealFields         = new Library\DealFields($this);
+        $this->organizations      = new Library\Organizations($this);
+        $this->organizationFields = new Library\OrganizationFields($this);
+        $this->products           = new Library\Products($this);
+        $this->users              = new Library\Users($this);
+        $this->pipelines          = new Library\Pipelines($this);
+        $this->stages             = new Library\Stages($this);
     }
 
     /**
@@ -161,7 +169,7 @@ class Pipedrive {
      *
      * @return \Benhawker\Pipedrive\Library\Curl
      */
-    public function curl() {
+    public function curl () {
         return $this->curl;
     }
 
@@ -170,7 +178,7 @@ class Pipedrive {
      *
      * @return \Benhawker\Pipedrive\Library\Persons
      */
-    public function persons() {
+    public function persons () {
         return $this->persons;
     }
 
@@ -179,7 +187,7 @@ class Pipedrive {
      *
      * @return \Benhawker\Pipedrive\Library\Deals
      */
-    public function deals() {
+    public function deals () {
         return $this->deals;
     }
 
@@ -188,7 +196,7 @@ class Pipedrive {
      *
      * @return \Benhawker\Pipedrive\Library\Activities
      */
-    public function activities() {
+    public function activities () {
         return $this->activities;
     }
 
@@ -197,7 +205,7 @@ class Pipedrive {
      *
      * @return \Benhawker\Pipedrive\Library\Notes
      */
-    public function notes() {
+    public function notes () {
         return $this->notes;
     }
 
@@ -206,7 +214,7 @@ class Pipedrive {
      *
      * @return \Benhawker\Pipedrive\Library\DealFields
      */
-    public function dealFields() {
+    public function dealFields () {
         return $this->dealFields;
     }
 
@@ -215,8 +223,17 @@ class Pipedrive {
      *
      * @return Organizations Object
      */
-    public function organizations() {
+    public function organizations () {
         return $this->organizations;
+    }
+
+    /**
+     * Returns the Pipedrive Organizations Object
+     *
+     * @return Organizations Object
+     */
+    public function organizationFields () {
+        return $this->organizationFields;
     }
 
     /**
@@ -224,17 +241,19 @@ class Pipedrive {
      *
      * @return Products Object
      */
-    public function products() {
+    public function products () {
         return $this->products;
     }
 
-    public function users() {
+    public function users () {
         return $this->users;
     }
-    public function pipelines() {
+
+    public function pipelines () {
         return $this->pipelines;
     }
-    public function stages() {
+
+    public function stages () {
         return $this->stages;
     }
 }
