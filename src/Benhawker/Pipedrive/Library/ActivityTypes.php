@@ -38,7 +38,7 @@ class ActivityTypes
     public function add (array $data) {
         //if there is no name set throw error as it is a required field
         if (!isset($data['name'])) {
-            throw new PipedriveMissingFieldError('You must include a "name" field when inserting a organizationFields');
+            throw new PipedriveMissingFieldError('You must include a "name" field when inserting a ActivityType');
         }
 
         return $this->curl->post('activityTypes', $data);
