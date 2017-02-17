@@ -79,6 +79,7 @@ class Pipedrive
      * @var \Benhawker\Pipedrive\Library\Activities Activities Object
      */
     protected $activities;
+    protected $activityTypes;
     /**
      * Placeholder attritube for the pipedrive notes class
      *
