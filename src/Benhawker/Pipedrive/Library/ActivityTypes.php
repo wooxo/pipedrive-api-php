@@ -1,13 +1,20 @@
-<?php namespace Benhawker\Pipedrive\Library;
+<?php
+/**
+ * Created by PhpStorm.
+ * User: plampson
+ * Date: 04/11/2016
+ * Time: 10:17
+ */
 
-use Benhawker\Pipedrive\Exceptions\PipedriveMissingFieldError;
+namespace Benhawker\Pipedrive\Library;
+
 
 class ActivityTypes
 {
     /**
      * Hold the pipedrive cURL session
      *
-     * @var \Benhawker\Pipedrive\Library\Curl Curl Object
+     * @var Curl Object
      */
     protected $curl;
 
@@ -25,23 +32,6 @@ class ActivityTypes
      * @return array returns all dealFields
      */
     public function getAll () {
-        return $this->curl->get('activityTypes');
+        return $this->curl->get('activityTypes')['data'];
     }
-
-    /**
-     * Adds a dealField
-     *
-     * @param  array $data deal field detials
-     *
-     * @return array returns details of the deal field
-     */
-    public function add (array $data) {
-        //if there is no name set throw error as it is a required field
-        if (!isset($data['name'])) {
-            throw new PipedriveMissingFieldError('You must include a "name" field when inserting a ActivityType');
-        }
-
-        return $this->curl->post('activityTypes', $data);
-    }
-
 }
