@@ -274,4 +274,7 @@ class Pipedrive {
     public function stages() {
         return $this->stages;
     }
+    public function webhooks() {
+        return $this->webhooks;
+    }
 }
