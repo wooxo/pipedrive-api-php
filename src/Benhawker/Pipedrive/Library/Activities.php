@@ -10,8 +10,7 @@ use Benhawker\Pipedrive\Exceptions\PipedriveMissingFieldError;
  * - see ActivityTypes object) and can be assigned to a particular User.
  * Note that activities can also be created without a specific date/time.
  */
-class Activities
-{
+class Activities {
     /**
      * Hold the pipedrive cURL session
      *
@@ -22,23 +21,21 @@ class Activities
     /**
      * Initialise the object load master class
      */
-    public function __construct (\Benhawker\Pipedrive\Pipedrive $master) {
+    public function __construct(\Benhawker\Pipedrive\Pipedrive $master) {
         //associate curl class
         $this->curl = $master->curl();
     }
 
-    public function getMany ($start) {
+    public function getMany($start) {
         return $this->curl->get("activities?start=$start&limit=100&user_id=0")['data'];
     }
 
     /**
-     * Adds a activity
-     *
-     * @param  array $data activity details
-     *
+     * @param array $data activity details
      * @return array returns details of the activity
+     * @throws PipedriveMissingFieldError
      */
-    public function add (array $data) {
+    public function add(array $data) {
 
         //if there is no subject or type set chuck error as both of the fields are required
         if (!isset($data['subject']) or !isset($data['type'])) {
@@ -53,8 +50,9 @@ class Activities
      *
      * @param       $id
      * @param array $data
+     * @return array
      */
-    public function update ($id, array $data) {
+    public function update($id, array $data) {
         return $this->curl->put('activities/' . $id, $data);
     }
 }

@@ -129,6 +129,12 @@ class Pipedrive
      * @var Stages Object
      */
     protected $stages;
+    /**
+     * Placeholder attritube for the pipedrive Webhooks class
+     *
+     * @var Webhooks Object
+     */
+    protected $webhooks;
     protected $files;
 
     /**
@@ -139,7 +145,7 @@ class Pipedrive
      * @param string $host     host url (default: api.pipedrive.com)
      * @param string $version  version  (default: v1)
      */
-    public function __construct (
+    public function __construct(
         $apiKey = '',
         $production = false,
         $protocol = 'https',
@@ -172,6 +178,7 @@ class Pipedrive
         $this->users              = new Library\Users($this);
         $this->pipelines          = new Library\Pipelines($this);
         $this->stages             = new Library\Stages($this);
+        $this->webhooks           = new Library\Webhooks($this);
     }
 
     /**
@@ -179,7 +186,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Curl
      */
-    public function curl () {
+    public function curl() {
         return $this->curl;
     }
 
@@ -188,7 +195,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Persons
      */
-    public function persons () {
+    public function persons() {
         return $this->persons;
     }
 
@@ -206,7 +213,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Deals
      */
-    public function deals () {
+    public function deals() {
         return $this->deals;
     }
 
@@ -215,11 +222,11 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Activities
      */
-    public function activities () {
+    public function activities() {
         return $this->activities;
     }
 
-    public function activityTypes () {
+    public function activityTypes() {
         return $this->activityTypes;
     }
 
@@ -228,7 +235,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\Notes
      */
-    public function notes () {
+    public function notes() {
         return $this->notes;
     }
 
@@ -237,7 +244,7 @@ class Pipedrive
      *
      * @return \Benhawker\Pipedrive\Library\DealFields
      */
-    public function dealFields () {
+    public function dealFields() {
         return $this->dealFields;
     }
 
@@ -246,7 +253,7 @@ class Pipedrive
      *
      * @return Organizations Object
      */
-    public function organizations () {
+    public function organizations() {
         return $this->organizations;
     }
 
@@ -255,7 +262,7 @@ class Pipedrive
      *
      * @return Organizations Object
      */
-    public function organizationFields () {
+    public function organizationFields() {
         return $this->organizationFields;
     }
 
@@ -264,19 +271,22 @@ class Pipedrive
      *
      * @return Products Object
      */
-    public function products () {
+    public function products() {
         return $this->products;
     }
 
-    public function users () {
+    public function users() {
         return $this->users;
     }
 
-    public function pipelines () {
+    public function pipelines() {
         return $this->pipelines;
     }
 
-    public function stages () {
+    public function stages() {
         return $this->stages;
+    }
+    public function webhooks() {
+        return $this->webhooks;
     }
 }
