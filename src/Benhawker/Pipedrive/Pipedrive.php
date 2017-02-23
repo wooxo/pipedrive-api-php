@@ -129,6 +129,7 @@ class Pipedrive
      * @var Stages Object
      */
     protected $stages;
+    protected $files;
 
     /**
      * Set up API url and load library classes
@@ -160,6 +161,7 @@ class Pipedrive
         //add pipedrive classes to the assoicated property
         $this->persons            = new Library\Persons($this);
         $this->deals              = new Library\Deals($this);
+        $this->files              = new Library\Files($this);
         $this->activityTypes      = new Library\ActivityTypes($this);
         $this->activities         = new Library\Activities($this);
         $this->notes              = new Library\Notes($this);
@@ -188,6 +190,15 @@ class Pipedrive
      */
     public function persons () {
         return $this->persons;
+    }
+
+    /**
+     * Returns the Pipedrive Files Object
+     *
+     * @return \Benhawker\Pipedrive\Library\Files
+     */
+    public function files () {
+        return $this->files;
     }
 
     /**

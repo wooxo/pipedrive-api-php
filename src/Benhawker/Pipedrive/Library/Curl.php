@@ -6,7 +6,8 @@ use Benhawker\Pipedrive\Exceptions\PipedriveApiError;
 /**
  * This class does the cURL requests for Pipedrive
  */
-class Curl {
+class Curl
+{
     /**
      * User Agent used to send to API
      */
@@ -34,7 +35,7 @@ class Curl {
     /**
      * Initialise the cURL session and set headers
      */
-    public function __construct($url, $apiKey, $production) {
+    public function __construct ($url, $apiKey, $production) {
         //set URL and API Key
         $this->url    = $url;
         $this->apiKey = $apiKey;
@@ -46,7 +47,7 @@ class Curl {
              ->setOpt(CURLOPT_HEADER, false)
              ->setOpt(CURLOPT_RETURNTRANSFER, true)
              ->setOpt(CURLOPT_HTTPHEADER, array("Accept: application/json"));
-        if(!$production){
+        if (!$production) {
             $this->setOpt(CURLOPT_SSL_VERIFYPEER, false);
         }
     }
@@ -54,7 +55,7 @@ class Curl {
     /**
      * Close cURL session
      */
-    public function __destruct() {
+    public function __destruct () {
         //if session is open close it
         if (is_resource($this->curl)) {
             curl_close($this->curl);
@@ -65,9 +66,10 @@ class Curl {
      * Makes cURL get Request
      *
      * @param  string $method Pipedrive method
+     *
      * @return array  decoded Json Output
      */
-    public function get($method, $data = array()) {
+    public function get ($method, $data = array()) {
         //set cURL transfer option for get request
         // and get ouput
         return $this->createEndPoint($method, $data)
@@ -80,9 +82,10 @@ class Curl {
      * Makes cURL get Request
      *
      * @param  string $method Pipedrive method
+     *
      * @return array  decoded Json Output
      */
-    public function post($method, array $data) {
+    public function post ($method, array $data) {
         //set cURL transfer option for post request
         // and get ouput
         return $this->createEndPoint($method)
@@ -92,13 +95,25 @@ class Curl {
                     ->exec();
     }
 
+    public function postFiles ($method, array $data) {
+        //set cURL transfer option for post request
+        // and get ouput
+        return $this->createEndPoint($method)
+                    ->setOpt(CURLOPT_CUSTOMREQUEST, 'POST')
+                    ->setOpt(CURLOPT_POST, true)
+                    ->setOpt(CURLOPT_HTTPHEADER, 'Content-Type: multipart/form-data')
+                    ->setOpt(CURLOPT_POSTFIELDS, $this->postfields($data))
+                    ->exec();
+    }
+
     /**
      * Makes cURL get Request
      *
      * @param  string $method Pipedrive method
+     *
      * @return array  decoded Json Output
      */
-    public function put($method, array $data) {
+    public function put ($method, array $data) {
         //set cURL transfer option for post request
         // and get ouput
         return $this->createEndPoint($method)
@@ -111,9 +126,10 @@ class Curl {
      * Makes cURL get Request
      *
      * @param  string $method Pipedrive method
+     *
      * @return array  decoded Json Output
      */
-    public function delete($method) {
+    public function delete ($method) {
         //set cURL transfer option for delete request
         // and get ouput
         return $this->createEndPoint($method)
@@ -126,7 +142,7 @@ class Curl {
      *
      * @return array decoded json ouput
      */
-    protected function exec() {
+    protected function exec () {
         //get response output and info
         $response = curl_exec($this->curl);
         $info     = curl_getinfo($this->curl);
@@ -153,9 +169,10 @@ class Curl {
      *
      * @param string $option option
      * @param string $value  value
+     *
      * @return $this this object
      */
-    protected function setOpt($option, $value) {
+    protected function setOpt ($option, $value) {
         //set cURL transfer option
         curl_setopt($this->curl, $option, $value);
         // return the current object
@@ -167,9 +184,10 @@ class Curl {
      * by adding the method and API key
      *
      * @param  string $method Pipedrive method
+     *
      * @return $this Current Object
      */
-    protected function createEndPoint($method, $data = array()) {
+    protected function createEndPoint ($method, $data = array()) {
         //create array for api key
         $data['api_token'] = $this->apiKey;
         //make API end point
@@ -195,9 +213,10 @@ class Curl {
      * is a file and set up a CURLFile object
      *
      * @param  array $data post fields
+     *
      * @return array updated postfields
      */
-    protected function postfields($data) {
+    protected function postfields ($data) {
         if (is_array($data)) {
             //if mulitdimensional array
             if ($this->isArrayMultiDim($data)) {
@@ -231,11 +250,12 @@ class Curl {
      * Build multidimenianl query
      * from: https://github.com/php-curl-class/php-curl-class
      *
-     * @param  array  $data post data
-     * @param  string $key  nested key
+     * @param  array $data post data
+     * @param  string $key nested key
+     *
      * @return string
      */
-    private function httpBuildMultiQuery(array $data, $key = null) {
+    private function httpBuildMultiQuery (array $data, $key = null) {
         $query = array();
 
         if (empty($data)) {
@@ -260,9 +280,10 @@ class Curl {
      * From https://github.com/php-curl-class/php-curl-class
      *
      * @param  array $array
+     *
      * @return boolean
      */
-    private function isArrayAssoc($array) {
+    private function isArrayAssoc ($array) {
         return (bool)count(array_filter(array_keys($array), 'is_string'));
     }
 
@@ -270,9 +291,10 @@ class Curl {
      * From https://github.com/php-curl-class/php-curl-class
      *
      * @param  array $array
+     *
      * @return boolean
      */
-    private function isArrayMultiDim($array) {
+    private function isArrayMultiDim ($array) {
         if (!is_array($array)) {
             return false;
         }
