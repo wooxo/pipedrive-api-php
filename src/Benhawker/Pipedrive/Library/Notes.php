@@ -8,7 +8,6 @@ use Benhawker\Pipedrive\Exceptions\PipedriveMissingFieldError;
  * to Deals, Persons and Organizations. Notes are usually displayed in the UI in
  * a chronological order – newest first – and in context with other updates
  * regarding the item they are attached to.
-
  */
 class Notes {
     /**
@@ -28,6 +27,16 @@ class Notes {
 
     public function getMany($start) {
         return $this->curl->get("notes?start=$start&limit=100")['data'];
+    }
+
+    /**
+     * Returns a user
+     *
+     * @param  int $id pipedrive users id
+     * @return array returns detials of a user
+     */
+    public function getById($id) {
+        return $this->curl->get('notes/' . $id);
     }
 
     /**

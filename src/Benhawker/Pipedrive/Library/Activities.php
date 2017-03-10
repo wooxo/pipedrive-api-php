@@ -31,6 +31,16 @@ class Activities {
     }
 
     /**
+     * Returns a user
+     *
+     * @param  int $id pipedrive users id
+     * @return array returns detials of a user
+     */
+    public function getById($id) {
+        return $this->curl->get('activities/' . $id);
+    }
+
+    /**
      * @param array $data activity details
      * @return array returns details of the activity
      * @throws PipedriveMissingFieldError
