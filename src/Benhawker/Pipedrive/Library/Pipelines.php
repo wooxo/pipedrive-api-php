@@ -25,16 +25,27 @@ class Pipelines {
         //associate curl class
         $this->curl = $master->curl();
     }
+
     /**
      * Returns all deal fields
      *
      * @return array returns all dealFields
      */
-    public function getAll()
-    {
+    public function getAll() {
         return $this->curl->get('pipelines')['data'];
     }
-    public function getMany($start){
-        return $this->curl->get('pipelines?start='.$start.'&limit=100')['data'];
+
+    /**
+     * Returns a pipeline
+     *
+     * @param  int $id pipedrive pipeline id
+     * @return array returns details of a pipeline
+     */
+    public function getById($id) {
+        return $this->curl->get('pipelines/' . $id);
+    }
+
+    public function getMany($start) {
+        return $this->curl->get('pipelines?start=' . $start . '&limit=100')['data'];
     }
 }

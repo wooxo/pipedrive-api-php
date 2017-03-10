@@ -31,10 +31,10 @@ class Activities {
     }
 
     /**
-     * Returns a user
+     * Returns a activity
      *
-     * @param  int $id pipedrive users id
-     * @return array returns detials of a user
+     * @param  int $id pipedrive activity id
+     * @return array returns details of a user
      */
     public function getById($id) {
         return $this->curl->get('activities/' . $id);

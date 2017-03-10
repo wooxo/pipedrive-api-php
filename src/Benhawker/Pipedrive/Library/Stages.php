@@ -33,7 +33,17 @@ class Stages {
     {
         return $this->curl->get('stages?pipeline_id=0')['data'];
     }
+
     public function getMany($start){
         return $this->curl->get('stages?start='.$start.'&limit=100')['data'];
+    }
+    /**
+     * Returns a stage
+     *
+     * @param  int $id pipedrive stage id
+     * @return array returns details of a stage
+     */
+    public function getById($id) {
+        return $this->curl->get('stages/' . $id);
     }
 }

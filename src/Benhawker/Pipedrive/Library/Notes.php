@@ -30,9 +30,9 @@ class Notes {
     }
 
     /**
-     * Returns a user
+     * Returns a note
      *
-     * @param  int $id pipedrive users id
+     * @param  int $id pipedrive note id
      * @return array returns detials of a user
      */
     public function getById($id) {
