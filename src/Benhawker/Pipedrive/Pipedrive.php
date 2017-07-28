@@ -136,6 +136,7 @@ class Pipedrive
      */
     protected $webhooks;
     protected $files;
+    protected $filters;
 
     /**
      * Set up API url and load library classes
@@ -179,6 +180,7 @@ class Pipedrive
         $this->pipelines          = new Library\Pipelines($this);
         $this->stages             = new Library\Stages($this);
         $this->webhooks           = new Library\Webhooks($this);
+        $this->filters           = new Library\Filters($this);
     }
 
     /**
@@ -288,5 +290,8 @@ class Pipedrive
     }
     public function webhooks() {
         return $this->webhooks;
+    }
+    public function filters() {
+        return $this->filters;
     }
 }
