@@ -31,7 +31,15 @@ class Deals
         $this->curl = $master->curl();
     }
 
-    public function getMany($start){
+    /**
+     * @param      $start
+     * @param null $filterId
+     * @return mixed
+     */
+    public function getMany($start, $filterId = null){
+        if($filterId){
+            return $this->curl->get('deals?start='.$start.'&filter_id='.$filterId.'&limit=100')['data'];
+        }
         return $this->curl->get('deals?start='.$start.'&limit=100')['data'];
     }
     /**
