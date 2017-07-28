@@ -12,6 +12,21 @@ namespace Benhawker\Pipedrive\Library;
 class Filters {
 
     /**
+     * Hold the pipedrive cURL session
+     *
+     * @var \Benhawker\Pipedrive\Library\Curl Curl Object
+     */
+    protected $curl;
+
+    /**
+     * Initialise the object load master class
+     */
+    public function __construct(\Benhawker\Pipedrive\Pipedrive $master) {
+        //associate curl class
+        $this->curl = $master->curl();
+    }
+
+    /**
      * Returns all Filters fields
      *
      * @return array returns all Filters
@@ -22,6 +37,7 @@ class Filters {
         }
         return $this->curl->get('filters')['data'];
     }
+
     /**
      * Returns a filter
      *
@@ -32,10 +48,10 @@ class Filters {
         return $this->curl->get('filters/' . $id);
     }
 
-    public function findByName($name, $type = null){
+    public function findByName($name, $type = null) {
         $allFilter = $this->getAll($type);
-        foreach($allFilter as $filter){
-            if($filter['name'] == $name){
+        foreach ($allFilter as $filter) {
+            if ($filter['name'] == $name) {
                 return $filter;
             }
         }
