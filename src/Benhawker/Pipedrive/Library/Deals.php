@@ -153,4 +153,16 @@ class Deals
         return $this->curl->put('deals/' . $dealId, array('stage_id' => $stageId));
     }
 
+    /**
+     * Get Activities of a deal
+     *
+     * @param  int   $dealId  deal id
+     * @param  int   $stageId stage id
+     * @return array returns detials of the deal
+     */
+    public function getAttachedActivities($dealId)
+    {
+        return $this->curl->get('deals/' . $dealId.'/activities');
+    }
+
 }
