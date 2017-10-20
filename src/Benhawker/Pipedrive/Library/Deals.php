@@ -165,4 +165,16 @@ class Deals
         return $this->curl->get('deals/' . $dealId.'/activities');
     }
 
+     /**
+     * Add Follower on a deal
+     *
+     * @param  int   $dealId  deal id
+     * @param  int   $followerId id of the user to add as follower
+     * @return array returns detials of the deal
+     */
+    public function addFollower($dealId, $followerId)
+    {
+        return $this->curl->get('deals/' . $dealId.'/followers', array('id' => $dealId, 'user_id' => $followerId));
+    }
+
 }
