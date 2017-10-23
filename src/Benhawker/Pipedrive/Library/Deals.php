@@ -174,7 +174,7 @@ class Deals
      */
     public function addFollower($dealId, $followerId)
     {
-        return $this->curl->get('deals/' . $dealId.'/followers', array('id' => $dealId, 'user_id' => $followerId));
+        return $this->curl->post('deals/' . $dealId.'/followers', ['user_id' => $followerId]);
     }
 
 }
